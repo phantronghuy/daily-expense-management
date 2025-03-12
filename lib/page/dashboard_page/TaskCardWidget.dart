@@ -1,7 +1,12 @@
+import 'package:daily_expense_management/obj/TaskCard.dart';
 import 'package:daily_expense_management/res/colors/MyColors.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class TaskCardWidget extends StatelessWidget {
+  TaskCard taskCard;
+  TaskCardWidget(this.taskCard, {super.key});
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -38,16 +43,16 @@ class TaskCardWidget extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
-                    "Food & Shopping",
-                    style: TextStyle(
+                  Text(
+                    taskCard.title,
+                    style: const TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
                       color: Colors.black87,
                     ),
                   ),
                   Text(
-                    "\$140 per day",
+                    "${formatAmount(taskCard.amount)} per day",
                     style: TextStyle(fontSize: 14, color: Colors.blue.shade900),
                   ),
                 ],
@@ -63,9 +68,9 @@ class TaskCardWidget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // Amount
-              const Text(
-                "\$140.00",
-                style: TextStyle(
+              Text(
+                "\$" + formatAmount(taskCard.currentAmount),
+                style: const TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
                   color: Colors.black87,
@@ -91,7 +96,8 @@ class TaskCardWidget extends StatelessWidget {
                     // Filled bar
                     Container(
                       height: 32,
-                      width: MediaQuery.of(context).size.width * 0.4, // 40% filled
+                      width:
+                          MediaQuery.of(context).size.width * 0.4, // 40% filled
                       decoration: BoxDecoration(
                         color: const Color(MyColors.secondaryColor),
                         borderRadius: BorderRadius.circular(30),
@@ -99,7 +105,8 @@ class TaskCardWidget extends StatelessWidget {
                     ),
                     // Circular handle
                     Positioned(
-                      left: MediaQuery.of(context).size.width * 0.34, // Near 40%
+                      left:
+                          MediaQuery.of(context).size.width * 0.34, // Near 40%
                       child: Container(
                         width: 25,
                         height: 32,
@@ -114,7 +121,8 @@ class TaskCardWidget extends StatelessWidget {
                           ],
                         ),
                         child: const Center(
-                          child: Icon(Icons.pause, size: 20, color: Colors.grey),
+                          child:
+                              Icon(Icons.pause, size: 20, color: Colors.grey),
                         ),
                       ),
                     ),
@@ -127,11 +135,12 @@ class TaskCardWidget extends StatelessWidget {
               Center(
                 child: RichText(
                   text: TextSpan(
-                    text: "Spent \$140 from ",
-                    style: const TextStyle(fontSize: 14, color:  Color(MyColors.blackColor)),
+                    text: "Spent \$${formatAmount(taskCard.currentAmount)} from ",
+                    style: const TextStyle(
+                        fontSize: 14, color: Color(MyColors.blackColor)),
                     children: [
                       TextSpan(
-                        text: "\$1700",
+                        text: "\$${formatAmount(taskCard.amount)}",
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: Colors.blue.shade900,
@@ -146,5 +155,10 @@ class TaskCardWidget extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  String formatAmount(double amount) {
+    final formatter = NumberFormat("###,###,###", "en_US");
+    return formatter.format(amount).replaceAll(",", ".");
   }
 }

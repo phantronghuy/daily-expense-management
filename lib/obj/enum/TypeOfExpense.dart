@@ -1,0 +1,4 @@
+enum TypeOfExpense {
+  Expense,
+  Income,
+}

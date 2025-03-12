@@ -1,12 +1,13 @@
-import 'package:daily_expense_management/page/dashboard_page/TaskCardWidget.dart';
-import 'package:daily_expense_management/page/dashboard_page/ToggleButton.dart';
+import 'package:daily_expense_management/page/dashboard_page/BottomPart.dart';
 import 'package:daily_expense_management/res/colors/MyColors.dart';
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 
 class DashboardPage extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
+    bool isExpenseStatus = true;
     return Scaffold(
       backgroundColor: const Color(MyColors.primaryColor),
       body: SafeArea(
@@ -90,13 +91,13 @@ class DashboardPage extends StatelessWidget {
                           child: ElevatedButton(
                             onPressed: () {},
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: const Color(MyColors.secondaryColor),
-                              foregroundColor:  const Color(MyColors.blackColor),
+                              backgroundColor:
+                                  const Color(MyColors.secondaryColor),
+                              foregroundColor: const Color(MyColors.blackColor),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(25),
                               ),
-                              padding:
-                                  const EdgeInsets.symmetric(vertical: 12),
+                              padding: const EdgeInsets.symmetric(vertical: 12),
                             ),
                             child: const Text(
                               "+ Add Money",
@@ -150,36 +151,7 @@ class DashboardPage extends StatelessWidget {
             ),
 
             // White Container (Bottom Part)
-            Expanded(
-              child: Container(
-                decoration: const BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(30),
-                    topRight: Radius.circular(30),
-                  ),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(20),
-                  child: Column(
-                    children: [
-                      // Expense & Income Toggle
-                      Container(
-                        padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 5),
-                        width: MediaQuery.of(context).size.width/2,
-                        decoration: BoxDecoration(
-                          color: MyColors.grayColor,
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        child: ToggleButton(textBtn1: "Expense", textBtn2: "Income", currentStatusBtn1: true),
-                      ),
-                      const SizedBox(height: 20),
-                      TaskCardWidget(),
-                    ],
-                  ),
-                ),
-              ),
-            ),
+            BottomPartWidget(),
           ],
         ),
       ),
