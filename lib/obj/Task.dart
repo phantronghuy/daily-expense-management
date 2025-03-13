@@ -1,9 +1,16 @@
+import 'package:daily_expense_management/obj/enum/IdTask.dart';
+
 class Task {
+  late int _id;
   String _title;
   String _description;
   double _amount;
 
-  Task(this._title, this._description, this._amount);
+  Task(this._title, this._description, this._amount) {
+    _id = IdTask.id++;
+  }
+  
+  int get id => _id;
 
   String get title => _title;
   String get description => _description;

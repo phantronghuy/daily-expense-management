@@ -1,6 +1,7 @@
 import 'package:daily_expense_management/obj/TaskCard.dart';
 import 'package:daily_expense_management/page/dashboard_page/TaskCardWidget.dart';
 import 'package:daily_expense_management/page/dashboard_page/ToggleButton.dart';
+import 'package:daily_expense_management/page/transaction_page/CreateTaskPage.dart';
 import 'package:daily_expense_management/res/colors/MyColors.dart';
 import 'package:flutter/material.dart';
 
@@ -44,31 +45,58 @@ class _BottomPartWidgetState extends State<BottomPartWidget> {
         ),
         child: Padding(
           padding: const EdgeInsets.all(20),
-          child: Column(
+          child: Stack(
             children: [
-              // Expense & Income Toggle
-              Container(
-                padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 5),
-                width: MediaQuery.of(context).size.width / 2,
-                decoration: BoxDecoration(
-                  color: MyColors.grayColor,
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: ToggleButton(
-                    textBtn1: "Expense",
-                    textBtn2: "Income",
-                    currentStatusBtn1: isExpenseEnable,
-                    onToggleStatus: _toggleExpenseStatus),
+              Column(
+                children: [
+                  // Expense & Income Toggle
+                  Container(
+                    padding:
+                        const EdgeInsets.symmetric(vertical: 4, horizontal: 5),
+                    width: MediaQuery.of(context).size.width / 2,
+                    decoration: BoxDecoration(
+                      color: MyColors.grayColor,
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: ToggleButton(
+                        textBtn1: "Expense",
+                        textBtn2: "Income",
+                        currentStatusBtn1: isExpenseEnable,
+                        onToggleStatus: _toggleExpenseStatus),
+                  ),
+                  const SizedBox(height: 20),
+                  Expanded(
+                    child: ListView.builder(
+                        itemCount: (isExpenseEnable)
+                            ? tasksExpense.length
+                            : tasksIncome.length,
+                        scrollDirection: Axis.vertical,
+                        shrinkWrap: true,
+                        itemBuilder: (context, index) {
+                          return (isExpenseEnable)
+                              ? TaskCardWidget(tasksExpense[index])
+                              : TaskCardWidget(tasksIncome[index]);
+                        }),
+                  ),
+                ],
               ),
-              const SizedBox(height: 20),
-              Expanded(
-                child: ListView.builder(
-                    itemCount: (isExpenseEnable) ? tasksExpense.length : tasksIncome.length,
-                    scrollDirection: Axis.vertical,
-                    shrinkWrap : true,
-                    itemBuilder: (context, index) {
-                      return (isExpenseEnable) ? TaskCardWidget(tasksExpense[index]) : TaskCardWidget(tasksIncome[index]);
-                    }),
+              Container(
+                decoration: const BoxDecoration(
+                  color: Color(MyColors.secondaryColor), // Background color
+                  shape: BoxShape.circle, // Makes it round
+                ),
+                child: IconButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => CreateTaskScreen(isExpense: isExpenseEnable)),
+                    );
+                  },
+                  icon: const Icon(Icons.add,
+                      size: 30,
+                      color: Color(MyColors.blackColor)), // Task creation icon
+                ),
               ),
             ],
           ),

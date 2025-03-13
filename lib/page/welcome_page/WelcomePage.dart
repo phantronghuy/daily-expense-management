@@ -1,3 +1,4 @@
+import 'package:daily_expense_management/page/MainScreen.dart';
 import 'package:daily_expense_management/page/dashboard_page/DashBoardPage.dart';
 import 'package:daily_expense_management/res/colors/MyColors.dart';
 import 'package:daily_expense_management/res/images/MyImagesPath.dart';
@@ -64,7 +65,7 @@ class WelcomePage extends StatelessWidget {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => DashboardPage(),
+        builder: (context) => MainScreen(),
       ),
     );
   }
