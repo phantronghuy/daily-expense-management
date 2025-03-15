@@ -80,24 +80,24 @@ class _BottomPartWidgetState extends State<BottomPartWidget> {
                   ),
                 ],
               ),
-              Container(
-                decoration: const BoxDecoration(
-                  color: Color(MyColors.secondaryColor), // Background color
-                  shape: BoxShape.circle, // Makes it round
-                ),
-                child: IconButton(
-                  onPressed: () {
-                    Navigator.push(
+
+              // Add Button
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
                       context,
                       MaterialPageRoute(
                           builder: (context) => CreateTaskScreen(isExpense: isExpenseEnable)),
                     );
-                  },
-                  icon: const Icon(Icons.add,
-                      size: 30,
-                      color: Color(MyColors.blackColor)), // Task creation icon
+                },
+                style: ElevatedButton.styleFrom(
+                  shape: const CircleBorder(),
+                  padding: const EdgeInsets.all(8),
+                  backgroundColor: const Color(MyColors.secondaryColor),
+                  foregroundColor: const Color(MyColors.blackColor),
                 ),
-              ),
+                child: const Icon(Icons.add, size: 30),
+              )
             ],
           ),
         ),
