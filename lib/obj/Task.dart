@@ -2,12 +2,21 @@ import 'package:daily_expense_management/obj/enum/IdTask.dart';
 
 class Task {
   late int _id;
-  String _title;
-  String _description;
-  double _amount;
+  late String _title;
+  late String _description;
+  late double _amount;
 
+  // Regular constructor
   Task(this._title, this._description, this._amount) {
     _id = IdTask.id++;
+  }
+  
+  // Add this constructor for creating from existing values
+  Task.fromExisting(int id, String title, String description, double amount) {
+    _id = id;
+    _title = title;
+    _description = description;
+    _amount = amount;
   }
   
   int get id => _id;
@@ -26,5 +35,10 @@ class Task {
 
   set amount(double amount) {
     _amount = amount;
+  }
+
+  @override
+  String toString() {
+    return 'Task{_id: $_id, _title: $_title, _description: $_description, _amount: $_amount}';
   }
 }

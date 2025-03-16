@@ -1,4 +1,6 @@
 import 'package:daily_expense_management/obj/TaskCard.dart';
+import 'package:daily_expense_management/obj/enum/TypeOfExpense.dart';
+import 'package:daily_expense_management/obj/manager/TaskCardManager.dart';
 import 'package:daily_expense_management/page/dashboard_page/TaskCardWidget.dart';
 import 'package:daily_expense_management/page/dashboard_page/ToggleButton.dart';
 import 'package:daily_expense_management/page/transaction_page/CreateTaskPage.dart';
@@ -7,29 +9,35 @@ import 'package:flutter/material.dart';
 
 class BottomPartWidget extends StatefulWidget {
   BottomPartWidget({super.key});
-
   @override
   State<BottomPartWidget> createState() => _BottomPartWidgetState();
 }
 
 class _BottomPartWidgetState extends State<BottomPartWidget> {
-  List<TaskCard> tasksExpense = [
-    TaskCard("Buy a new phone", "Iphone 13 Pro Max", 200),
-    TaskCard("Buy a new laptop", "Macbook Pro 2021", 50000000),
-    TaskCard("Buy a new car", "Tesla Model 3", 100000000),
-    TaskCard("Buy a new house", "Vinhomes Grand Park", 500000000),
-    TaskCard("Buy a new watch", "Apple Watch Series 7", 10000000),
-  ];
-  List<TaskCard> tasksIncome = [
-    TaskCard("Salary", "Monthly salary", 20000000),
-    TaskCard("Bonus", "Yearly bonus", 50000000),
-  ];
   bool isExpenseEnable = true;
+  late TaskCardManager tskMng;
 
   void _toggleExpenseStatus(bool newValue) {
     setState(() {
       isExpenseEnable = newValue;
     });
+  }
+
+  void _navigateToCreateTaskScreen() async {
+    await Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => CreateTaskScreen(isExpense: isExpenseEnable),
+      ),
+    );
+    setState(() {});
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    tskMng = TaskCardManager();
   }
 
   @override
@@ -67,15 +75,20 @@ class _BottomPartWidgetState extends State<BottomPartWidget> {
                   const SizedBox(height: 20),
                   Expanded(
                     child: ListView.builder(
-                        itemCount: (isExpenseEnable)
-                            ? tasksExpense.length
-                            : tasksIncome.length,
+                        itemCount: tskMng.taskCards.length,
                         scrollDirection: Axis.vertical,
                         shrinkWrap: true,
                         itemBuilder: (context, index) {
-                          return (isExpenseEnable)
-                              ? TaskCardWidget(tasksExpense[index])
-                              : TaskCardWidget(tasksIncome[index]);
+                          //print(isExpenseEnable.toString()+ tskMng.taskCards[index].toString());
+                          if ((isExpenseEnable &&
+                                  tskMng.taskCards[index].typeOfExpense ==
+                                      TypeOfExpense.Expense) ||
+                              (!isExpenseEnable &&
+                                  tskMng.taskCards[index].typeOfExpense ==
+                                      TypeOfExpense.Income)) {
+                            return TaskCardWidget(tskMng.taskCards[index]);
+                          }
+                         // return TaskCardWidget(tskMng.taskCards[index]);
                         }),
                   ),
                 ],
@@ -83,13 +96,7 @@ class _BottomPartWidgetState extends State<BottomPartWidget> {
 
               // Add Button
               ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => CreateTaskScreen(isExpense: isExpenseEnable)),
-                    );
-                },
+                onPressed: _navigateToCreateTaskScreen,
                 style: ElevatedButton.styleFrom(
                   shape: const CircleBorder(),
                   padding: const EdgeInsets.all(8),

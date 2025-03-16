@@ -4,11 +4,18 @@ import 'package:daily_expense_management/obj/enum/TypeOfExpense.dart';
 class TaskCard extends Task{
   double _currentAmount;
   TypeOfExpense _typeOfExpense;
-  TaskCard(super.title, super.description, super.amount) : _currentAmount = 0.0, _typeOfExpense = TypeOfExpense.Other;
-  TaskCard.withCard(Task task , double currentAmount, TypeOfExpense typeOfExpense) 
-    : _currentAmount = currentAmount,
-      _typeOfExpense = typeOfExpense,
-      super(task.title, task.description, task.amount);
+  // Regular constructor
+  TaskCard(String title, String description, double amount) 
+      : _currentAmount = 0.0, 
+        _typeOfExpense = TypeOfExpense.Other,
+        super(title, description, amount);
+  
+  // Constructor for creating from an existing Task
+  TaskCard.withCard(Task task, double currentAmount, TypeOfExpense typeOfExpense) 
+      : _currentAmount = currentAmount,
+        _typeOfExpense = typeOfExpense,
+        // Pass the existing task's ID to avoid incrementing twice
+        super.fromExisting(task.id, task.title, task.description, task.amount);
 
   TypeOfExpense get typeOfExpense => _typeOfExpense;
 
@@ -24,6 +31,11 @@ class TaskCard extends Task{
 
   void addAmount(double amount) {
     _currentAmount += amount;
+  }
+
+  @override
+  String toString() {
+    return super.toString() + 'TaskCard{_currentAmount: $_currentAmount, _typeOfExpense: $_typeOfExpense}';
   }
 
 }
