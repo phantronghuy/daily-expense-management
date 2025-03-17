@@ -44,4 +44,15 @@ class TaskCardManager {
     return expense;
   }
 
+  double getTotalPerNameTask(String type) {
+    double total = 0.0;
+    for (TaskCard taskCard in taskCards) {
+      if (taskCard.title.toLowerCase().compareTo(type.toLowerCase()) == 0) {
+        total += taskCard.currentAmount;
+      }
+    }
+    return total;
+  }
+
+
 }

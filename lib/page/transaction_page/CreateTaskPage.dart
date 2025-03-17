@@ -37,7 +37,7 @@ class _CreateTaskScreenState extends State<CreateTaskScreen> {
     } else {
       Task task = Task(_selectedTask!, _descriptionController.text,
           double.parse(_amountController.text));
-      taskCard = TaskCard.withCard(task, double.parse(_amountController.text),
+      taskCard = TaskCard.withCard(task, 0.0,
           (widget.isExpense) ? TypeOfExpense.Expense : TypeOfExpense.Income);
       TaskCardManager taskCardManager = TaskCardManager();
       taskCardManager.addTaskCard(taskCard);

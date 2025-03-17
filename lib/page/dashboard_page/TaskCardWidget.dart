@@ -52,7 +52,7 @@ class TaskCardWidget extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    "${formatAmount(taskCard.amount)} per day",
+                    taskCard.description ?? "No description",
                     style: TextStyle(fontSize: 14, color: Colors.blue.shade900),
                   ),
                 ],
