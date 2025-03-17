@@ -30,7 +30,9 @@ class _BottomPartWidgetState extends State<BottomPartWidget> {
         builder: (context) => CreateTaskScreen(isExpense: isExpenseEnable),
       ),
     );
-    setState(() {});
+    setState(() {
+      tskMng.getTaskCards();
+    });
   }
 
   @override
@@ -79,7 +81,6 @@ class _BottomPartWidgetState extends State<BottomPartWidget> {
                         scrollDirection: Axis.vertical,
                         shrinkWrap: true,
                         itemBuilder: (context, index) {
-                          //print(isExpenseEnable.toString()+ tskMng.taskCards[index].toString());
                           if ((isExpenseEnable &&
                                   tskMng.taskCards[index].typeOfExpense ==
                                       TypeOfExpense.Expense) ||
@@ -88,7 +89,7 @@ class _BottomPartWidgetState extends State<BottomPartWidget> {
                                       TypeOfExpense.Income)) {
                             return TaskCardWidget(tskMng.taskCards[index]);
                           }
-                         // return TaskCardWidget(tskMng.taskCards[index]);
+                          return const SizedBox.shrink();
                         }),
                   ),
                 ],
