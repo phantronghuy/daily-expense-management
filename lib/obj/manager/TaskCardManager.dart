@@ -1,4 +1,5 @@
 import 'package:daily_expense_management/obj/TaskCard.dart';
+import 'package:daily_expense_management/obj/enum/MyLogger.dart';
 import 'package:daily_expense_management/obj/enum/TypeOfExpense.dart';
 
 class TaskCardManager {
@@ -17,7 +18,7 @@ class TaskCardManager {
 
   void addTaskCard(TaskCard taskCard) {
     taskCards.add(taskCard);
-    print(taskCard.toString());
+    MyLogger.log.info(taskCard.toString());
   }
 
   void removeTaskCard(TaskCard taskCard) {

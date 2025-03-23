@@ -1,3 +1,4 @@
+import 'package:daily_expense_management/obj/enum/MyLogger.dart';
 import 'package:daily_expense_management/obj/enum/TasksCategories.dart';
 import 'package:daily_expense_management/page/dashboard_page/CreateTaskPage.dart';
 import 'package:daily_expense_management/page/dashboard_page/TaskCategoryCardWidget.dart';
@@ -49,20 +50,23 @@ class _TaskCategoriesScreenState extends State<TaskCategoriesScreen> {
 
   void _navigateToPrevScreen(BuildContext context) {
     if (!mounted) {
-      print("Context is not mounted, cannot pop screen");
+      MyLogger.log.warning("Context is not mounted, cannot navigate");
       return;
     }
-    Navigator.push(context, MaterialPageRoute(builder: (context) => CreateTaskScreen(isExpense: true)));
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => CreateTaskScreen(isExpense: true)));
   }
 
   void onClickOnEachItem(
       String nameCategory, BuildContext context, BuildContext classContext) {
     if (nameCategory.isNotEmpty) {
       if (nameCategory.toLowerCase().replaceAll(" ", "") == "addnew") {
-        print("Add Category");
+        MyLogger.log.info("Add new Category");
         _navigateToPrevScreen(classContext);
       } else {
-        print("Category: $nameCategory");
+        MyLogger.log.info("Category: $nameCategory");
       }
     }
   }

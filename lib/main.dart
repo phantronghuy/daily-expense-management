@@ -2,8 +2,14 @@ import 'package:daily_expense_management/page/welcome_page/WelcomePage.dart';
 import 'package:daily_expense_management/res/colors/MyColors.dart';
 import 'package:daily_expense_management/res/images/MyImagesPath.dart';
 import 'package:flutter/material.dart';
+import 'package:logging/logging.dart';
+
 
 void main() {
+  Logger.root.level = Level.ALL;
+  Logger.root.onRecord.listen((record) {
+    print('${record.level.name}: ${record.time}: ${record.message}');
+  });
   runApp(const MyApp());
 }
 
