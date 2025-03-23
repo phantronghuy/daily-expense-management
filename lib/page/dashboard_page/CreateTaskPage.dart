@@ -18,10 +18,22 @@ class _CreateTaskScreenState extends State<CreateTaskScreen> {
   final TextEditingController _descriptionController = TextEditingController();
   String? _selectedTask;
   late TaskCard taskCard;
+  late TaskCardManager taskCardManager;
+
+  @override
+  void initState() {
+    super.initState();
+    taskCardManager = TaskCardManager();
+  }
 
   void _onTaskSelected(String? value) {
     setState(() {
       _selectedTask = value;
+      // if (value != null) {
+      //   if (taskCardManager.) {
+          
+      //   }
+      // }
     });
   }
 
@@ -121,3 +133,4 @@ class _CreateTaskScreenState extends State<CreateTaskScreen> {
     );
   }
 }
+

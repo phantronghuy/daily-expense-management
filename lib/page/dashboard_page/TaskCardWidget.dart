@@ -52,7 +52,7 @@ class TaskCardWidget extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    taskCard.description ?? "No description",
+                    taskCard.description,
                     style: TextStyle(fontSize: 14, color: Colors.blue.shade900),
                   ),
                 ],

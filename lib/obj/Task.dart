@@ -5,6 +5,7 @@ class Task {
   late String _title;
   late String _description;
   late double _amount;
+  Map<String, double> _taskCategories = {};
 
   // Regular constructor
   Task(this._title, this._description, this._amount) {
@@ -17,6 +18,14 @@ class Task {
     _title = title;
     _description = description;
     _amount = amount;
+    if (!_taskCategories.containsKey(title)) {
+      _taskCategories[title] = 0.0;
+    } 
+  }
+
+  Map<String, double> get taskCategories => _taskCategories;
+  set taskCategories(Map<String, double> taskCategories) {
+    _taskCategories = taskCategories;
   }
   
   int get id => _id;

@@ -2,8 +2,9 @@ import 'package:daily_expense_management/obj/TaskCard.dart';
 import 'package:daily_expense_management/obj/enum/TypeOfExpense.dart';
 import 'package:daily_expense_management/obj/manager/TaskCardManager.dart';
 import 'package:daily_expense_management/page/dashboard_page/TaskCardWidget.dart';
+import 'package:daily_expense_management/page/dashboard_page/TaskCategoriesScreen.dart';
 import 'package:daily_expense_management/page/dashboard_page/ToggleButton.dart';
-import 'package:daily_expense_management/page/transaction_page/CreateTaskPage.dart';
+import 'package:daily_expense_management/page/dashboard_page/CreateTaskPage.dart';
 import 'package:daily_expense_management/res/colors/MyColors.dart';
 import 'package:flutter/material.dart';
 
@@ -30,6 +31,19 @@ class _BottomPartWidgetState extends State<BottomPartWidget> {
         builder: (context) => CreateTaskScreen(isExpense: isExpenseEnable),
       ),
     );
+    setState(() {
+      tskMng.getTaskCards();
+    });
+  }
+
+  void _navigateToTaskCategoriesScreen() async {
+    await Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => TaskCategoriesScreen(),
+      ),
+    );
+
     setState(() {
       tskMng.getTaskCards();
     });
@@ -97,7 +111,7 @@ class _BottomPartWidgetState extends State<BottomPartWidget> {
 
               // Add Button
               ElevatedButton(
-                onPressed: _navigateToCreateTaskScreen,
+                onPressed: _navigateToTaskCategoriesScreen,
                 style: ElevatedButton.styleFrom(
                   shape: const CircleBorder(),
                   padding: const EdgeInsets.all(8),
